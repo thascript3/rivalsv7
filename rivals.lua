@@ -17574,7 +17574,7 @@ task.spawn(function()
             local hits, shots = State.Hits, State.Shots
             local acc = shots > 0 and math.floor((hits / shots) * 100) or 0
             local text = string.format(
-                'LuaHook v1 beta  ·  %s  ·  Shots: %d  ·  Hits: %d  ·  Acc: %d%%',
+                'krixyware v1 beta  ·  %s  ·  Shots: %d  ·  Hits: %d  ·  Acc: %d%%',
                 lp.DisplayName, shots, hits, acc
             )
             if Config.Rage then

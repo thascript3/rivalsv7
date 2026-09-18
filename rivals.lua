@@ -17514,8 +17514,8 @@ task.spawn(function()
         SaveManager:IgnoreThemeSettings()
         SaveManager:SetIgnoreIndexes({ 'MenuKeybind', 'LH_ConfigName',
             'GVWeapon', 'GVSkin', 'GVCharm', 'GVWrap', 'GVFinisher', 'GVEmote', 'GVRankWep', 'GVRankLook' })
-        ThemeManager:SetFolder('LuaHook')
-        SaveManager:SetFolder('LuaHook/configs')
+        ThemeManager:SetFolder('krixyware')
+        SaveManager:SetFolder('krixyware/configs')
         SaveManager:BuildConfigSection(Tabs.Settings)
         ThemeManager:ApplyToTab(Tabs.Settings)
         local origNotify = Library.Notify

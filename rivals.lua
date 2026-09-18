@@ -4018,8 +4018,18 @@ local Visuals = {}
                 c = c * CFrame.Angles(math.rad(pitch), math.rad(yaw), math.rad(roll))
             end
             if doStretch then
-                c = CFrame.fromMatrix(c.Position, c.RightVector * s, c.UpVector)
-            end
+    local look = c.LookVector
+    local horiz = Vector3.new(look.X, 0, look.Z)
+    if horiz.Magnitude > 0.0001 then
+        local vert = look.Y
+        local newLook = (horiz.Unit * math.sqrt(1 - math.clamp(vert * vert, 0, 1)) + Vector3.new(0, vert, 0)).Unit
+        local right = newLook:Cross(Vector3.new(0, 1, 0))
+        if right.Magnitude > 0.0001 then
+            c = CFrame.fromMatrix(c.Position, right.Unit * s, Vector3.new(0, 1, 0))
+        end
+    end
+end
+
             if doAspect then
                 local rx = math.clamp(Config.CameraAspectRatioX or 4, 1, 21)
                 local ry = math.clamp(Config.CameraAspectRatioY or 3, 1, 21)

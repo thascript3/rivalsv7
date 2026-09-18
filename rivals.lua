@@ -3113,7 +3113,7 @@ local Visuals = {}
         end
         local function update()
             local now = tick()
-            if now - _fxThrT < 0.0083 then return end
+            if now - _fxThrT < (isMobile and 0.033 or 0.0083) then return end
             _fxThrT = now
             local dt = now - (_fxLastT or now)
             _fxLastT = now

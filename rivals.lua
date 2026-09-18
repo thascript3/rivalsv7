@@ -17585,5 +17585,5 @@ task.spawn(function()
         task.wait(0.5)
     end
 end)
-Library:Notify('LuaHook v1 beta loaded', 4)
+Library:Notify('krixyware v1 beta loaded', 4)
 _G["\76\72"] = Library

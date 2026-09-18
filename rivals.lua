@@ -12492,9 +12492,9 @@ local Aimbot = {}
     function Aimbot.enable()
         Config.Aimbot = true
         if _bound then return end
-        RunService:BindToRenderStep("LuaHook_Aimbot", Enum.RenderPriority.Camera.Value + 1, function(dt)
-            pcall(step, dt)
-        end)
+       RunService.Heartbeat:Connect(function()
+    pcall(step)
+end)
         _bound = true
     end
     function Aimbot.disable()

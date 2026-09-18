@@ -16480,7 +16480,7 @@ pcall(function()
     Library.FontColor       = Color3.fromRGB(239, 241, 245)
 end)
 local windowOptions = {
-    Title = 'LuaHook',
+    Title = 'krixyware',
     Center = true,
     AutoShow = false,
     TabPadding = 8,

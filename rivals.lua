@@ -17564,7 +17564,7 @@ Library.Unload = function(self, ...)
     pcall(GameVisuals.disable)
     return _origUnload(self, ...)
 end
-pcall(function() Library:SetWatermark('LuaHook v1 beta') end)
+pcall(function() Library:SetWatermark('krixyware v1 beta') end)
 pcall(function() Library:SetWatermarkVisibility(false) end)
 task.spawn(function()
     while _wmAlive do

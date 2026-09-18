@@ -4555,7 +4555,7 @@ end
     Visuals.refreshViewModel = refreshViewModel
     function Visuals.init()
         snapshotLighting()
-        if Config.Visuals then bindStretch() end
+        bindStretch()
         refreshViewModel()
         updatePlayerSpoofer()
         refreshGuiNameSpoofer()

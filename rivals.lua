@@ -3993,7 +3993,6 @@ local Visuals = {}
         if _stretchBound then return end
         _stretchBound = true
         RunService:BindToRenderStep("VS_Stretch", Enum.RenderPriority.Last.Value, function()
-            if not Config.Visuals then return end
             if Config.Rage then return end
             local s = Config.VisualsStretch
             local doStretch = math.abs(s - 1.0) >= 0.001

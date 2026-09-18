@@ -718,7 +718,7 @@ local Config = {
     VisualsNoFog = false,
     VisualsHolograms = false, VisualsRainbowMap = false,
     VisualsRainbowMapSpeed = 0.15, VisualsStretch = 1.0,
-    VisualsStretchMin = 0.5, VisualsStretchMax = 1.2,
+    VisualsStretchMin = 0.5, VisualsStretchMax = 1.0,
     VisualsCameraSway = false,
     VisualsCameraSwayAmount = 0.5,
     VisualsHologramDuration = 3.5, VisualsHologramRange = 300,

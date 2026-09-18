@@ -713,7 +713,7 @@ local Config = {
     ESPHeadDotTransparency      = 0,
     ESPChamsFillTransparency    = 0.6,
     ESPChamsOutlineTransparency = 0,
-    Visuals = false, VisualsPreset = "Neutral", VisualsPerformanceMode = false,
+    Visuals = false, VisualsPreset = "Neutral", VisualsPerformanceMode = true,
     VisualsFullbright = false,
     VisualsNoFog = false,
     VisualsHolograms = false, VisualsRainbowMap = false,

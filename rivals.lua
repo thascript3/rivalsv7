@@ -13880,7 +13880,7 @@ local ESP = {}
     local function render()
         local _now = tick()
         local _dt  = _now - _lastRenderT
-        if _now - _lastRenderT < 0.0083 then return end
+        if _now - _lastRenderT < (isMobile and 0.05 or 0.016) then return end
         _lastRenderT = _now
         _espFrame = _espFrame + 1
         _createBudget = CREATE_BUDGET_PER_FRAME

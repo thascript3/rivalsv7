@@ -717,7 +717,8 @@ local Config = {
     VisualsFullbright = false,
     VisualsNoFog = false,
     VisualsHolograms = false, VisualsRainbowMap = false,
-    VisualsRainbowMapSpeed = 0.15,
+    VisualsRainbowMapSpeed = 0.15, VisualsStretch = 1.0,
+    VisualsStretchMin = 0.5, VisualsStretchMax = 1.0,
     VisualsCameraSway = false,
     VisualsCameraSwayAmount = 0.5,
     VisualsHologramDuration = 3.5, VisualsHologramRange = 300,
@@ -1781,7 +1782,7 @@ local Visuals = {}
 ;(function()
     local _origLighting, _origClones = nil, {}
     local _hologramFolder, _hologramCooldowns = nil, {}
-          _rainbowConn = false, nil
+    local _stretchBound, _rainbowConn = false, nil
     local _rainbowParts, _rainbowHue, _rainbowBatchIdx = {}, 0, 1
     local _perfBackup, _origParticleRates = nil, {}
     local _reassertConn, _reassertLastT = nil, 0
@@ -3988,6 +3989,10 @@ local Visuals = {}
     end)()
     local _fovSaved = nil
     local _tpRP = nil
+    local function bindStretch()
+        if _stretchBound then return end
+        _stretchBound = true
+        RunService:BindToRenderStep("VS_Stretch", Enum.RenderPriority.Last.Value, function()
             if Config.Rage then return end
             local s = Config.VisualsStretch
             local doStretch = math.abs(s - 1.0) >= 0.001
@@ -4019,8 +4024,7 @@ local Visuals = {}
         local newLook = (horiz.Unit * math.sqrt(1 - math.clamp(vert * vert, 0, 1)) + Vector3.new(0, vert, 0)).Unit
         local right = newLook:Cross(Vector3.new(0, 1, 0))
         if right.Magnitude > 0.0001 then
-            c = CFrame.new(c.Position) * CFrame.Angles(math.atan2(math.tan(math.asin(math.clamp(-c.LookVector.Y, -1, 1))) / s, 1), math.atan2(-c.LookVector.X, -c.LookVector.Z), 0) 
-                
+            c = CFrame.fromMatrix(c.Position, right.Unit * s, Vector3.new(0, 1, 0))
         end
     end
 end
@@ -4421,6 +4425,9 @@ end
             end)
         end)
     end
+    function Visuals.setStretch(v)
+        Config.VisualsStretch = math.clamp(v, Config.VisualsStretchMin, Config.VisualsStretchMax)
+    end
     local function startRainbow()
         if _rainbowConn then return end
         _rainbowBatchIdx = 1; table.clear(_rainbowParts)
@@ -4547,6 +4554,7 @@ end
     Visuals.refreshViewModel = refreshViewModel
     function Visuals.init()
         snapshotLighting()
+        bindStretch()
         refreshViewModel()
         updatePlayerSpoofer()
         refreshGuiNameSpoofer()
@@ -4556,6 +4564,7 @@ end
         if not Config.VisualsPerformanceMode then
             applyFullbrightOverride(); applyFogOverride()
         end
+        bindStretch()
         refreshViewModel()
         updatePlayerSpoofer()
         refreshGuiNameSpoofer()
@@ -4568,7 +4577,10 @@ end
         Config.Visuals = false; stopRainbow(); stopReassert()
         clearGrade(); clearBloom(); clearCamFrame()
         if Config.VisualsPerformanceMode then disablePerf() end
-      
+        if _stretchBound then
+            pcall(function() RunService:UnbindFromRenderStep("VS_Stretch") end)
+            _stretchBound = false
+        end
         restore()
     end
     function Visuals.unload()
@@ -4583,6 +4595,10 @@ end
             _fovSaved = nil
         end
         if _hologramFolder then pcall(function() _hologramFolder:Destroy() end); _hologramFolder = nil end
+        if _stretchBound then
+            pcall(function() RunService:UnbindFromRenderStep("VS_Stretch") end)
+            _stretchBound = false
+        end
     end
 end)()
 local Weather = {}

@@ -4024,7 +4024,8 @@ local Visuals = {}
         local newLook = (horiz.Unit * math.sqrt(1 - math.clamp(vert * vert, 0, 1)) + Vector3.new(0, vert, 0)).Unit
         local right = newLook:Cross(Vector3.new(0, 1, 0))
         if right.Magnitude > 0.0001 then
-            c = CFrame.fromMatrix(c.Position, right.Unit * s, Vector3.new(0, 1, 0))
+            c = CFrame.new(c.Position) * CFrame.Angles(math.atan2(math.tan(math.asin(math.clamp(-c.LookVector.Y, -1, 1))) / s, 1), math.atan2(-c.LookVector.X, -c.LookVector.Z), 0) 
+                
         end
     end
 end
